@@ -1,0 +1,27 @@
+.page{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  color: white;
+}
+
+.mainWrapper {
+  height: 40%;
+  width: 60%;
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainHead {
+  font-size: 3.5rem;
+  text-align: center;
+}
+
+.roomNameIn {
+  width: 100% !important;
+}
