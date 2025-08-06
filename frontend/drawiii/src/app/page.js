@@ -42,7 +42,8 @@ const dancingScript = Dancing_Script({
 // // }
 
 function connectToRoom(roomCode, router) {
-  router.push(`/canvas?room=${roomCode}`)
+  // router.push(`/canvas?room=${roomCode}`)
+  window.location.href = `/canvas?room=${roomCode}`;
 }
 
 export default function Home() {
