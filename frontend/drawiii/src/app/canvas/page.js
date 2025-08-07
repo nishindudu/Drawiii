@@ -82,6 +82,7 @@ function Canvas() {
       };
 
       const startDraw = (e) => {
+        e.preventDefault();
         if (roomCodePub === null) {
           setRoomCode();
           connectToRoom(roomCodePub);
@@ -103,26 +104,28 @@ function Canvas() {
       };
 
       const draw = (e) => {
-          if (!isDrawing.current) return;
-          const pos = getMousePos(e);
-          context.lineTo(pos.x, pos.y);
-          context.strokeStyle = 'white';
-          context.lineWidth = 2;
-          context.stroke();
-          socket.emit('draw_stroke', {
-            room: roomCodePub,
-            from: [context.currentX, context.currentY],
-            to: [pos.x, pos.y]
-          })
-          context.currentX = pos.x;
-          context.currentY = pos.y;
+        e.preventDefault();
+        if (!isDrawing.current) return;
+        const pos = getMousePos(e);
+        context.lineTo(pos.x, pos.y);
+        context.strokeStyle = 'white';
+        context.lineWidth = 2;
+        context.stroke();
+        socket.emit('draw_stroke', {
+          room: roomCodePub,
+          from: [context.currentX, context.currentY],
+          to: [pos.x, pos.y]
+        })
+        context.currentX = pos.x;
+        context.currentY = pos.y;
       };
 
       const stopDraw = (e) => {
-          if (isDrawing.current) {
-              isDrawing.current = false;
-              // context.closePath();
-          }
+        e.preventDefault();
+        if (isDrawing.current) {
+          isDrawing.current = false;
+          // context.closePath();
+        }
       }
 
       const handleIncomingStroke = (data) => {
@@ -146,10 +149,10 @@ function Canvas() {
       window.addEventListener('resize', resizeCanvas);
       resizeCanvas();
 
-      canvas.addEventListener('mousedown', startDraw);
-      canvas.addEventListener('mousemove', draw);
-      canvas.addEventListener('mouseup', stopDraw);
-      canvas.addEventListener('mouseleave', stopDraw);
+      canvas.addEventListener('pointerdown', startDraw);
+      canvas.addEventListener('pointermove', draw);
+      canvas.addEventListener('pointerup', stopDraw);
+      canvas.addEventListener('pointerleave', stopDraw);
 
       
       async function setSocketListener() {
@@ -169,10 +172,10 @@ function Canvas() {
 
       return () => {
           window.removeEventListener('resize', resizeCanvas);
-          canvas.removeEventListener('mousedown', startDraw);
-          canvas.removeEventListener('mousemove', draw);
-          canvas.removeEventListener('mouseup', stopDraw);
-          canvas.removeEventListener('mouseleave', stopDraw);
+          canvas.removeEventListener('pointerdown', startDraw);
+          canvas.removeEventListener('pointermove', draw);
+          canvas.removeEventListener('pointerup', stopDraw);
+          canvas.removeEventListener('pointerleave', stopDraw);
           socket.off('receive_stroke', handleIncomingStroke);
       };
   }, [isDrawing]);
