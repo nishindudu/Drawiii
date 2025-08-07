@@ -1,6 +1,18 @@
-# 🎨 Drawiii
+<div align="center">
+    <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="./screenshots/drawiii-dark.png">
+        <source media="(prefers-color-scheme: light)" srcset="./screenshots/drawiii-light.png">
+        <img src="./screenshots/drawiii-dark.png" alt="Drawiii Logo" width="200">
+    </picture>
+</div>
+
+<div align="center">
+
+<h1>🎨 Drawiii</h1>
 
 **A collaborative drawing canvas for you and your friends** ✨
+
+</div>
 
 ## 💖 Features
 - **Real Time Collaboration**: Draw together with anyone in real-time.
