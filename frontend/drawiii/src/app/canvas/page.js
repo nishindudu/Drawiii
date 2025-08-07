@@ -35,12 +35,25 @@ async function connectToRoom(roomCode) {
   socket.emit('join_room', { room: roomCode});
 }
 
+async function copyLink() {
+  if (roomCodePub === undefined) {
+    await setRoomCode();
+  }
+  try {
+    await navigator.clipboard.writeText(window.location.href);
+    alert(`Link copied to clipboard!\nShare this link with your friends to join the same room and start drawing together!\n\n${window.location.href}`);
+  } catch (err) {
+    alert(`Failed to copy link. But you can share it manually: ${window.location.href}.\nCopy this and share it with your friends to join the same room and start drawing together!`);
+  }
+}
+
 
 function Canvas() {
   console.log(roomCodePub);
   connectToRoom(roomCodePub);
   const canvasRef = useRef(null);
   const isDrawing = useRef(false);
+  copyLink();
 
   useEffect(() => {
       const canvas = canvasRef.current;
