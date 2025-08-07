@@ -54,6 +54,7 @@ function Canvas() {
       canvas.height = 1080;
       context.fillStyle = "black";
       context.fillRect(0, 0, canvas.width, canvas.height);
+      canvas.style.touchAction = 'none';
 
       const resizeCanvas = () => {
           const aspectRatio = 1920/1080;
@@ -83,6 +84,9 @@ function Canvas() {
 
       const startDraw = (e) => {
         e.preventDefault();
+        // canvas.setPointerCapture(e.pointerId);
+        // console.log('start ', e.pointerId, e.pointerType)
+
         if (roomCodePub === null) {
           setRoomCode();
           connectToRoom(roomCodePub);
@@ -104,9 +108,11 @@ function Canvas() {
       };
 
       const draw = (e) => {
+        // console.log('draw ', e.pointerId, e.pointerType)
         e.preventDefault();
         if (!isDrawing.current) return;
         const pos = getMousePos(e);
+        // console.log(pos);
         context.lineTo(pos.x, pos.y);
         context.strokeStyle = 'white';
         context.lineWidth = 2;
@@ -122,6 +128,9 @@ function Canvas() {
 
       const stopDraw = (e) => {
         e.preventDefault();
+        // console.log('stop ', e.pointerId, e.pointerType)
+        // canvas.releasePointerCapture(e.pointerId);
+
         if (isDrawing.current) {
           isDrawing.current = false;
           // context.closePath();
@@ -130,7 +139,7 @@ function Canvas() {
 
       const handleIncomingStroke = (data) => {
         const { from, to } = data;
-        console.log(`from: ${from},,, to: ${to}`);
+        // console.log(`from: ${from},,, to: ${to}`);
 
         context.strokeStyle = 'white';
         context.lineWidth = 2;
@@ -225,7 +234,9 @@ export default function CanvasPage() {
     //     }
     // }, [roomCode]);
 
+
+
     return(
-        <Canvas />
-    );
+      <Canvas />
+  );
 }
