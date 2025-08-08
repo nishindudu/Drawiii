@@ -16,3 +16,14 @@ export function Button({ text, size, onclick }) {
         <button type="button" className="btn" style={{ 'font-size':size }} onClick={onclick}>{text}</button>
     )
 }
+
+export function ColourPicker({ color = '#ffffff', onChange }) {
+    return (
+        <input
+            type="color"
+            className="colour-picker"
+            value={color}
+            onChange={onChange}
+        />
+    )
+}

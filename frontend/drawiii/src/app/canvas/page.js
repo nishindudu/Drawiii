@@ -1,10 +1,12 @@
 'use client'
 
 import { io } from "socket.io-client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ColourPicker } from "../components/inputs";
 
 let socket = null;
 let roomCodePub;
+let colourPub = '#ffffff';
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -31,7 +33,7 @@ async function connectToRoom(roomCode) {
   if (roomCode === undefined) {
     await setRoomCode();
   }
-//   console.log(roomCode);
+  // console.log(roomCode);
   socket.emit('join_room', { room: roomCode});
 }
 
@@ -49,11 +51,13 @@ async function copyLink() {
 
 
 function Canvas() {
-  console.log(roomCodePub);
-  connectToRoom(roomCodePub);
+  // console.log(roomCodePub);
   const canvasRef = useRef(null);
   const isDrawing = useRef(false);
-  copyLink();
+  useEffect(() => {
+    connectToRoom(roomCodePub);
+    copyLink();
+  }, []);
 
   useEffect(() => {
       const canvas = canvasRef.current;
@@ -100,11 +104,11 @@ function Canvas() {
         // canvas.setPointerCapture(e.pointerId);
         // console.log('start ', e.pointerId, e.pointerType)
 
-        if (roomCodePub === null) {
+        if (roomCodePub === null || roomCodePub === undefined) {
           setRoomCode();
           connectToRoom(roomCodePub);
         }
-          console.log('Startdraw');
+          // console.log('Startdraw');
           // console.log(roomCodePub);
           isDrawing.current = true;
           const pos = getMousePos(e);
@@ -127,13 +131,14 @@ function Canvas() {
         const pos = getMousePos(e);
         // console.log(pos);
         context.lineTo(pos.x, pos.y);
-        context.strokeStyle = 'white';
+        context.strokeStyle = colourPub;
         context.lineWidth = 2;
         context.stroke();
         socket.emit('draw_stroke', {
           room: roomCodePub,
           from: [context.currentX, context.currentY],
-          to: [pos.x, pos.y]
+          to: [pos.x, pos.y],
+          colour: colourPub
         })
         context.currentX = pos.x;
         context.currentY = pos.y;
@@ -151,10 +156,10 @@ function Canvas() {
       }
 
       const handleIncomingStroke = (data) => {
-        const { from, to } = data;
+        const { from, to, colour } = data;
         // console.log(`from: ${from},,, to: ${to}`);
 
-        context.strokeStyle = 'white';
+        context.strokeStyle = colour;
         context.lineWidth = 2;
         context.beginPath();
 
@@ -220,7 +225,7 @@ async function getQueryParam(param) {
     await sleep(500);
   };
   const params = new URLSearchParams(window.location.search);
-  console.log('para' + params);
+  // console.log('para' + params);
   if (!params.get(param)) {
     await sleep(500);
     getQueryParam('room');
@@ -239,17 +244,22 @@ export default function CanvasPage() {
     // console.log(`Roo code : ${roomCode}`);
     // roomCodePub = roomCode;
     setRoomCode();
-    connectToRoom(roomCodePub);
+    useEffect(() => {
+      connectToRoom(roomCodePub);
+    }, []);
 
-    // useEffect(() => {
-    //     if (roomCode) {
-    //         connectToRoom(roomCode);
-    //     }
-    // }, [roomCode]);
+    const [color, setColour] = useState('#ffffff');
+    const HandleColorChange = (e) => {
+      // console.log(e.target.value);
+      setColour(e.target.value);
+      colourPub = e.target.value;
+    }
 
-
-
+    
     return(
-      <Canvas />
+      <>
+        <Canvas />
+        <ColourPicker color={color} onChange={HandleColorChange} />
+      </>
   );
 }
