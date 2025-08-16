@@ -258,6 +258,7 @@ export default function CanvasPage() {
     
     return(
       <>
+        <a href="https://github.com/nishindudu/Drawiii" target="_blank" className="github"><img src="github-mark-white.svg"></img></a>
         <Canvas />
         <ColourPicker color={color} onChange={HandleColorChange} />
       </>

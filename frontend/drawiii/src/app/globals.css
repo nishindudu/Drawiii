@@ -75,3 +75,27 @@ a {
   left: 1vh;
   bottom: 1vh;
 }
+
+@media (max-width: 600px) {
+  .github {
+    max-width: 20px !important;
+    top: unset !important;
+    bottom: 10px;
+  }  
+}
+
+.github {
+  display: block;
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  padding: 0;
+  max-width: 36px;
+  z-index: 1000;
+}
+
+.github img {
+  width: inherit;
+  max-width: inherit;
+  max-height: inherit;
+}
