@@ -13,7 +13,7 @@ export default function Textbox({ text, id, value, onchange }) {
 
 export function Button({ text, size, onclick }) {
     return (
-        <button type="button" className="btn" style={{ 'font-size':size }} onClick={onclick}>{text}</button>
+        <button type="button" className="btn" style={{ 'fontSize':size }} onClick={onclick}>{text}</button>
     )
 }
 

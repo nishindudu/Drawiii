@@ -258,6 +258,7 @@ export default function CanvasPage() {
     
     return(
       <>
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d6ffa59403cb49f0ae4dc5ad5c1547f4"}'></script>
         <a href="https://github.com/nishindudu/Drawiii" target="_blank" className="github"><img src="github-mark-white.svg"></img></a>
         <Canvas />
         <ColourPicker color={color} onChange={HandleColorChange} />

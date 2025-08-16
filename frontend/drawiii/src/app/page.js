@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import styles from "./page.module.css";
-import { Dancing_Script } from "next/font/google";
+import { Dancing_Script, Arima } from "next/font/google";
 import Textbox from "./components/inputs";
 import { Button } from "./components/inputs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { io } from "socket.io-client";
+import Link from "next/link";
 
 
 
@@ -16,6 +17,10 @@ const dancingScript = Dancing_Script({
   subsets: ['latin']
 })
 
+const arima = Arima({
+  weight: 'variable',
+  subsets: ['latin']
+})
 
 function connectToRoom(roomCode, router) {
   // router.push(`/canvas?room=${roomCode}`)
@@ -32,6 +37,7 @@ export default function Home() {
 
   return (
     <>
+      <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d6ffa59403cb49f0ae4dc5ad5c1547f4"}'></script>
       <a href="https://github.com/nishindudu/Drawiii" target="_blank" className="github"><img src="github-mark-white.svg"></img></a>
       <div className={styles.page}>
         <div className={`${styles.mainWrapper} glow-box`}>
@@ -41,6 +47,7 @@ export default function Home() {
           {/* <Button text="Connect!" size="1.2rem" onclick={() => connectToRoom(roomCode)} /> */}
         </div>
       </div>
+      <Link href="/privacy" className={`${styles.privacyLink} ${arima.className}`}>Privacy Policy</Link>
     </>
   );
 }
