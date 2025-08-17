@@ -15,6 +15,10 @@ def serve_frontend(path=''):
 def serve_canvas():
     return send_from_directory(app.static_folder, 'canvas.html')
 
+@app.route('/privacy')
+def serve_privacy():
+    return send_from_directory(app.static_folder, 'privacy.html')
+
 
 @socketio.on('join_room')
 def handle_join(data):

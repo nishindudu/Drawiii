@@ -2,11 +2,12 @@
 
 import { io } from "socket.io-client";
 import { useEffect, useRef, useState } from "react";
-import { ColourPicker } from "../components/inputs";
+import { ColourPicker, DownloadButton, QuickColourPicker } from "../components/inputs";
 
 let socket = null;
 let roomCodePub;
 let colourPub = '#ffffff';
+let canvasPub;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -64,6 +65,7 @@ function Canvas() {
       if (!canvas) {
           return;
       }
+      canvasPub = canvas;
 
       const context = canvas.getContext('2d');
 
@@ -239,6 +241,18 @@ async function setRoomCode() {
   roomCodePub = roomCode;
 }
 
+async function handleDownload() {
+  const canvas = canvasPub;
+  if (!canvas) return;
+
+  const dataUrl = canvas.toDataURL("image/png");
+  const link = document.createElement("a");
+  link.href = dataUrl;
+  link.download = "canvas.png";
+  link.click();
+  link.remove();
+}
+
 export default function CanvasPage() {
     // const roomCode = getQueryParam('room');
     // console.log(`Roo code : ${roomCode}`);
@@ -251,15 +265,26 @@ export default function CanvasPage() {
     const [color, setColour] = useState('#ffffff');
     const HandleColorChange = (e) => {
       // console.log(e.target.value);
-      setColour(e.target.value);
-      colourPub = e.target.value;
+      try {
+        setColour(e.target.value);
+        colourPub = e.target.value;
+      } catch (error) {
+        if (error instanceof TypeError) {
+          setColour(e);
+          colourPub = e;
+        }
+      }
     }
 
     
     return(
       <>
         <Canvas />
-        <ColourPicker color={color} onChange={HandleColorChange} />
+        <QuickColourPicker color={color} onChange={HandleColorChange} />
+        <div className="canvas-controls">
+          <ColourPicker color={color} onChange={HandleColorChange} />
+          <DownloadButton onclick={handleDownload} color="#ffffff" />
+        </div>
       </>
   );
 }

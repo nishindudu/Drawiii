@@ -62,25 +62,71 @@ a {
   cursor: pointer;
 }
 
-.colour-picker {
+
+.canvas-controls {
   position: absolute;
   border: none;
   padding: 0;
+  padding-right: 1vh;
+  z-index: 1000;
+  right: 1vh;
+  bottom: 10px;
+  outline: none;
+  max-width: 99vw;
+  max-height: 4vw;
+  display: flex;
+  /* justify-content: space-between; */
+  flex-direction: row-reverse;
+  /* margin-right: 10px; */
+  margin-left: 10px;
+}
+
+@media (max-width: 600px) {
+  .canvas-controls {
+    max-width: calc(100vw - 35px);
+    bottom: 10px !important;
+  }
+}
+
+.colour-picker {
+  /* position: absolute; */
+  border: none;
+  padding: 0;
+  width: 4vw;
+  height: 4vw;
+  max-width: 40px;
+  max-height: 40px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 50%;
+  margin-right: inherit;
+  margin-left: inherit;
+  /* z-index: 1000;
+  left: 1vh;
+  bottom: 1vh; */
+}
+
+.download-btn {
   width: 4vw;
   height: 4vw;
   cursor: pointer;
   outline: none;
   border-radius: 50%;
-  z-index: 1000;
-  left: 1vh;
-  bottom: 1vh;
+  background-color: white;
+  margin-right: inherit;
+  margin-left: inherit;
+  max-width: 40px;
+  max-height: 40px;
+  text-align: center;
+  align-content: center;
 }
 
 @media (max-width: 600px) {
   .github {
     max-width: 20px !important;
-    top: unset !important;
-    bottom: 10px;
+    top: 5px !important;
+    right: 5px !important;
+    /* bottom: 10px; */
   }  
 }
 

@@ -1,0 +1,79 @@
+@keyframes quick-colour-picker-animation {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes quick-colour-animation {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+    
+}
+
+.quick-colour-picker-container {
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.hide-quick-colour {
+    margin-left: -5000px !important;
+    /* display: none !important; */
+}
+
+.quick-colour-picker {
+    margin-left: 8px;
+    margin-right: 8px;
+    width: calc(100% - 16px);
+    max-height: 100px;
+    min-height: 15px;
+    display: flex;
+    flex-direction: row;
+    z-index: 999;
+    align-self: center;
+    justify-content: space-between;
+    animation: quick-colour-picker-animation 0.5s ease-in-out;
+    transition-duration: 0.5s;
+}
+
+.quick-colour {
+    cursor: pointer;
+    height: 5vw;
+    width: 5vw;
+    min-width: 15px;
+    min-height: inherit;
+    max-width: 40px;
+    max-height: 40px;
+    border: 1px solid wheat;
+    z-index: inherit;
+    border-radius: 50%;
+    animation: quick-colour-animation 0.5s ease-in-out;
+    scale: 0.6;
+    transition: 0.2s;
+}
+
+.quick-colour:hover {
+    transform: scale(1.2);
+}
+
+.toggle-quick-colours {
+    align-self: center;
+    z-index: 1;
+    margin-right: 1vw;
+    cursor: pointer;
+    transition-duration: 0.5s;
+}
+
+.toggle-quick-colours-active {
+    transform: rotate(450deg);
+}
