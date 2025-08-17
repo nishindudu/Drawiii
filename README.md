@@ -30,24 +30,31 @@
    cd Drawiii
    ```
 
-3. **Navigate to Frontend Code and Install dependencies**:
+3. **Remove or Replace Cloudflare Analytics Script**:
+
+   Open the `frontend/src/app/layout.js` file and remove the following line:
+   ```javascript
+   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "<CLOUDFLARE_TOKEN>"}'></script>
+   ```
+
+4. **Navigate to Frontend Code and Install dependencies**:
    ```bash
    cd frontend
    npm install
    ```
 
-4. **Run ``build`` command from the frontend directory**:
+5. **Run ``build`` command from the frontend directory**:
    ```bash
    npm run build
    ```
 
-5. **Navigate to Backend Code and Install dependencies**:
+6. **Navigate to Backend Code and Install dependencies**:
    ```bash
    cd backend
    pip install -r requirements.txt
    ```
 
-6. **Run the Backend Server**:
+7. **Run the Backend Server**:
    ```bash
    gunicorn -k eventlet -w 1 app:app
    ```
@@ -56,7 +63,7 @@
    python app.py
    ```
 
-7. **Open the Frontend**:
+8. **Open the Frontend**:
    Open your browser and go to `http://localhost:<port>` (port will be shown in the terminal) to start drawing!
 
 For a live demo, visit [Drawiii Demo](https://drawiii.onrender.com/).
