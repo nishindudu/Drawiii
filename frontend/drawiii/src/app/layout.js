@@ -19,7 +19,7 @@ const inter = Inter({
 
 export const metadata = {
   title: "Drawiii",
-  description: "Multiplayer drawing with socket.io",
+  description: "A simple real-time collaborative drawing app",
 };
 
 export default function RootLayout({ children }) {
