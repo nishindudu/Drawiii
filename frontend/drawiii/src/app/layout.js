@@ -20,6 +20,7 @@ const inter = Inter({
 export const metadata = {
   title: "Drawiii",
   description: "A simple real-time collaborative drawing app",
+  metadataBase: new URL("https://drawiii.onrender.com/"),
 };
 
 export default function RootLayout({ children }) {
