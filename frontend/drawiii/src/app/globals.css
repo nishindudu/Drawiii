@@ -81,6 +81,7 @@ a {
   margin-left: 10px;
   align-items: center;
   transition-duration: 0.5s;
+  min-height: fit-content;
 }
 
 @media (max-width: 600px) {
@@ -104,6 +105,7 @@ a {
   border-radius: 50%;
   margin-right: inherit;
   margin-left: inherit;
+  align-self: flex-end;
   /* z-index: 1000;
   left: 1vh;
   bottom: 1vh; */
@@ -122,6 +124,7 @@ a {
   max-height: 40px;
   text-align: center;
   align-content: center;
+  align-self: flex-end;
 }
 
 @media (max-width: 600px) {

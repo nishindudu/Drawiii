@@ -167,6 +167,7 @@ function Canvas() {
 
         context.strokeStyle = colour;
         context.lineWidth = thickness;
+        context.lineCap = "round";
         context.beginPath();
 
         if (from) {
