@@ -77,3 +77,23 @@
 .toggle-quick-colours-active {
     transform: rotate(450deg);
 }
+
+.thickness-changer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    /* width: 100%; */
+    margin-left: inherit;
+}
+
+.thickness-changer-container label {
+    font-size: 80%;
+    transition-duration: 0.5s;
+}
+
+@media (max-width: 600px) {
+  .thickness-changer-container label {
+    font-size: 60%;
+}
+}

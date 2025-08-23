@@ -67,3 +67,34 @@ export function DownloadButton({ onclick, color = '#ffffff' }) {
         </div>
     )
 }
+
+
+export function ThicknessChanger({ thickness, onChange }) {
+    const maxPreviewSize = 60;
+    const previewSize = Math.min(thickness, maxPreviewSize);
+
+    return (
+        <div className="thickness-changer-container">
+            <label className="thickness-changer-label">
+                Thickness: 
+                <span style={{
+                    display: 'inline-block',
+                    width: `${previewSize}px`,
+                    height: `${previewSize}px`,
+                    backgroundColor: '#ffffff',
+                    marginLeft: '8px',
+                    transition: 'width 0.2s ease-in-out',
+                    borderRadius: '50%',
+                    verticalAlign: 'middle',
+                }} />
+            </label>
+            <input
+                type="range"
+                min="1"
+                max="100"
+                value={thickness}
+                onChange={onChange}
+            />
+        </div>
+    )
+}
