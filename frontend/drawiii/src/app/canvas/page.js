@@ -2,12 +2,13 @@
 
 import { io } from "socket.io-client";
 import { useEffect, useRef, useState } from "react";
-import { ColourPicker, DownloadButton, QuickColourPicker } from "../components/inputs";
+import { ColourPicker, DownloadButton, QuickColourPicker, ThicknessChanger } from "../components/inputs";
 
 let socket = null;
 let roomCodePub;
 let colourPub = '#ffffff';
 let canvasPub;
+let thicknessPub = 2;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -119,7 +120,9 @@ function Canvas() {
           socket.emit('draw_stroke', {
             room: roomCodePub,
             from: null,
-            to: [pos.x, pos.y]
+            to: [pos.x, pos.y],
+            colour: colourPub,
+            thickness: thicknessPub
           })
 
           context.currentX = pos.x;
@@ -134,13 +137,14 @@ function Canvas() {
         // console.log(pos);
         context.lineTo(pos.x, pos.y);
         context.strokeStyle = colourPub;
-        context.lineWidth = 2;
+        context.lineWidth = thicknessPub;
         context.stroke();
         socket.emit('draw_stroke', {
           room: roomCodePub,
           from: [context.currentX, context.currentY],
           to: [pos.x, pos.y],
-          colour: colourPub
+          colour: colourPub,
+          thickness: thicknessPub
         })
         context.currentX = pos.x;
         context.currentY = pos.y;
@@ -158,11 +162,11 @@ function Canvas() {
       }
 
       const handleIncomingStroke = (data) => {
-        const { from, to, colour } = data;
+        const { from, to, colour, thickness } = data;
         // console.log(`from: ${from},,, to: ${to}`);
 
         context.strokeStyle = colour;
-        context.lineWidth = 2;
+        context.lineWidth = thickness;
         context.beginPath();
 
         if (from) {
@@ -276,12 +280,18 @@ export default function CanvasPage() {
       }
     }
 
-    
+    const [thickness, setThickness] = useState(2);
+    const handleThicknessChange = (e) => {
+      setThickness(e.target.value);
+      thicknessPub = e.target.value;
+    }
+
     return(
       <>
         <Canvas />
         <QuickColourPicker color={color} onChange={HandleColorChange} />
         <div className="canvas-controls">
+          <ThicknessChanger thickness={thickness} onChange={handleThicknessChange} />
           <ColourPicker color={color} onChange={HandleColorChange} />
           <DownloadButton onclick={handleDownload} color="#ffffff" />
         </div>

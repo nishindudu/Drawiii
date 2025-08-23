@@ -67,3 +67,21 @@ export function DownloadButton({ onclick, color = '#ffffff' }) {
         </div>
     )
 }
+
+
+export function ThicknessChanger({ thickness, onChange }) {
+    return (
+        <div className="thickness-changer-container">
+            <label className="thickness-changer-label">
+                Thickness: {thickness}
+            </label>
+            <input
+                type="range"
+                min="1"
+                max="100"
+                value={thickness}
+                onChange={onChange}
+            />
+        </div>
+    )
+}

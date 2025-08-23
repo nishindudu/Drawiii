@@ -79,12 +79,15 @@ a {
   flex-direction: row-reverse;
   /* margin-right: 10px; */
   margin-left: 10px;
+  align-items: center;
+  transition-duration: 0.5s;
 }
 
 @media (max-width: 600px) {
   .canvas-controls {
     max-width: calc(100vw - 35px);
     bottom: 10px !important;
+    margin-left: 5px !important;
   }
 }
 
@@ -138,6 +141,7 @@ a {
   padding: 0;
   max-width: 36px;
   z-index: 1000;
+  transition-duration: 0.5s;
 }
 
 .github img {
