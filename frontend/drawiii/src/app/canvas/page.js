@@ -115,8 +115,8 @@ function Canvas() {
           // console.log(roomCodePub);
           isDrawing.current = true;
           const pos = getMousePos(e);
-          context.beginPath();
-          context.moveTo(pos.x, pos.y);
+          // context.beginPath(); // Conflicts with multiuser
+          // context.moveTo(pos.x, pos.y);
           socket.emit('draw_stroke', {
             room: roomCodePub,
             from: null,
@@ -135,10 +135,15 @@ function Canvas() {
         if (!isDrawing.current) return;
         const pos = getMousePos(e);
         // console.log(pos);
+
+        context.beginPath();
+        context.moveTo(context.currentX, context.currentY);
         context.lineTo(pos.x, pos.y);
         context.strokeStyle = colourPub;
         context.lineWidth = thicknessPub;
         context.stroke();
+        context.closePath();
+        
         socket.emit('draw_stroke', {
           room: roomCodePub,
           from: [context.currentX, context.currentY],
